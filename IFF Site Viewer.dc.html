@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&amp;family=Poppins:wght@700;800&amp;display=swap" rel="stylesheet">
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#e3e6eb;font-family:'Jost',system-ui,sans-serif;color:#071a3d}*{box-sizing:border-box}a{color:#071a3d}a:hover{color:#F04B47}</style>
+</helmet>
+<div style="position:fixed;inset:0;background:#e3e6eb;overflow:hidden">
+
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-right:{{ padR }};transition:padding .3s">
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <div style="width:{{ dW }};height:{{ dH }};position:relative;border-radius:8px;overflow:hidden;box-shadow:0 30px 80px rgba(7,26,61,.28);background:#071a3d">
+        <iframe ref="{{ frameRef }}" onLoad="{{ onFrame }}" src="{{ src }}" title="Desktop preview" style="position:absolute;top:0;left:0;width:1920px;height:1080px;border:0;transform:scale({{ dScale }});transform-origin:0 0"></iframe>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <div style="width:{{ mW }};height:{{ mH }};position:relative">
+        <div style="position:absolute;top:0;left:0;width:414px;height:868px;padding:12px;border-radius:56px;background:#0b1220;box-shadow:0 30px 80px rgba(7,26,61,.32);transform:scale({{ mScale }});transform-origin:0 0">
+          <div style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:#071a3d">
+            <iframe ref="{{ frameRef }}" onLoad="{{ onFrame }}" src="{{ src }}" title="Mobile preview" style="width:390px;height:844px;border:0;display:block"></iframe>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+
+  <div style="position:absolute;top:18px;left:18px;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.94);padding:8px 16px;border-radius:999px;font-size:14px;box-shadow:0 6px 18px rgba(7,26,61,.12)">
+    <strong style="font-family:'Poppins',sans-serif;font-weight:800">{{ curLabel }}</strong>
+    <span style="opacity:.5">·</span>
+    <span>{{ modeLabel }}</span>
+  </div>
+
+  <div style="position:absolute;top:50%;right:0;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:20">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+      <button onClick="{{ t.click }}" style="width:40px;height:{{ t.h }};border:0;border-radius:12px 0 0 12px;background:{{ t.bg }};color:#ffffff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(7,26,61,.18);padding:0;transition:background .25s, width .25s" style-hover="width:46px">
+        <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Jost',sans-serif;font-weight:800;font-size:13px;letter-spacing:2px">{{ t.label }}</span>
+      </button>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{ panelOpen }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;top:50%;right:56px;transform:translateY(-50%);width:340px;max-height:calc(100vh - 60px);overflow-y:auto;background:#ffffff;border-radius:18px;box-shadow:0 24px 60px rgba(7,26,61,.22);padding:22px 18px 16px;z-index:19">
+      <sc-if value="{{ showPages }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:0 6px 14px;border-bottom:1px solid rgba(7,26,61,.12);margin-bottom:8px">
+          <strong style="font-family:'Poppins',sans-serif;font-size:18px;font-weight:800">Designed pages</strong>
+          <div style="display:flex;gap:14px;font-size:12px;opacity:.6"><span>Desktop</span><span>Mobile</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <sc-for list="{{ pages }}" as="p" hint-placeholder-count="12">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 6px 8px 8px;border-radius:12px;background:{{ p.rowBg }};opacity:{{ p.op }}">
+              <span style="font-size:16px;font-weight:{{ p.weight }}">{{ p.label }}</span>
+              <sc-if value="{{ p.ready }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;gap:8px">
+                  <button onClick="{{ p.goD }}" aria-label="Desktop" style="width:38px;height:38px;border-radius:10px;border:1px solid {{ p.dBorder }};background:{{ p.dBg }};color:{{ p.dColor }};cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5"></rect><path d="M8 20h8M12 16v4"></path></svg></button>
+                  <button onClick="{{ p.goM }}" aria-label="Mobile" style="width:38px;height:38px;border-radius:10px;border:1px solid {{ p.mBorder }};background:{{ p.mBg }};color:{{ p.mColor }};cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2"></rect><path d="M11 18h2"></path></svg></button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ p.soon }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size:12px;padding:4px 10px;border-radius:999px;background:#eceef2">Soon</span>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ showMap }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:0 6px 14px;border-bottom:1px solid rgba(7,26,61,.12);margin-bottom:12px"><strong style="font-family:'Poppins',sans-serif;font-size:18px;font-weight:800">Site map</strong></div>
+        <div style="display:flex;flex-direction:column;gap:14px;padding:0 6px">
+          <sc-for list="{{ sitemap }}" as="g" hint-placeholder-count="5">
+            <div>
+              <button onClick="{{ g.go }}" style="background:none;border:0;padding:0;font:inherit;font-size:16px;font-weight:800;color:{{ g.color }};cursor:{{ g.cursor }}">{{ g.label }}</button>
+              <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;padding-left:14px;border-left:2px solid rgba(7,26,61,.12)">
+                <sc-for list="{{ g.kids }}" as="k" hint-placeholder-count="2">
+                  <button onClick="{{ k.go }}" style="background:none;border:0;padding:0;font:inherit;font-size:14px;text-align:left;color:{{ k.color }};cursor:{{ k.cursor }}">{{ k.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  frameRef = React.createRef();
+  pagesDef = [
+    ['designs', 'Home', true], ['films', 'Films & Tickets', true], ['film-page', 'Film page', true], ['schedule', 'Schedule', true],
+    ['guests', '38IFF Guests', true], ['mission', 'Mission & History', true], ['gallery', 'Gallery & Archive', true], ['gallery-year', 'Gallery · Year', true],
+    ['sponsors', '38IFF Sponsors', true], ['sponsor', 'Become a Sponsor', true], ['media', 'In the Media', true], ['article', 'Article', true],
+    ['honorary', 'Honorary Committee', true], ['team', 'Our Team & Offices', true], ['volunteer', 'Become a Volunteer', true], ['contact', 'Contact us', true], ['tickets', 'Tickets & Prices', true], ['tribute', 'Tribute Book', true]
+  ];
+  mapDef = [
+    ['designs', []],
+    ['About IFF LA', ['mission', 'honorary', 'team', 'gallery', 'volunteer', 'contact']],
+    ['38th Festival', ['films', 'schedule', 'guests', 'tickets']],
+    ['Sponsors', ['sponsors', 'sponsor', 'tribute']],
+    ['Press & Media', ['media']]
+  ];
+  sub = { 'gallery': ['gallery-year'], 'films': ['film-page'], 'media': ['article'] };
+  state = (() => {
+    let s = {};
+    try { s = JSON.parse(localStorage.getItem('iff-viewer') || '{}'); } catch (e) {}
+    return { page: s.page || 'designs', mode: s.mode || 'desktop', panel: s.panel === undefined ? 'pages' : s.panel, w: window.innerWidth, h: window.innerHeight };
+  })();
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth, h: window.innerHeight });
+    window.addEventListener('resize', this.onR);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onR); if (this._fw && this._fh) this._fw.removeEventListener('hashchange', this._fh); }
+  set(patch) {
+    this.setState(patch, () => { try { localStorage.setItem('iff-viewer', JSON.stringify({ page: this.state.page, mode: this.state.mode, panel: this.state.panel })); } catch (e) {} });
+  }
+  renderVals() {
+    const st = this.state;
+    const byId = Object.fromEntries(this.pagesDef.map(([id, label, ready]) => [id, { label, ready: !!ready }]));
+    const cur = byId[st.page] && byId[st.page].ready ? st.page : 'designs';
+    const availW = st.w - (st.panel ? 420 : 70) - 40, availH = st.h - 90;
+    const dScale = Math.max(0.2, Math.min(availW / 1920, availH / 1080, 1));
+    const mScale = Math.max(0.3, Math.min(availH / 868, 1));
+    const go = (id, mode) => () => { if (byId[id] && byId[id].ready) this.set({ page: id, mode: mode || this.state.mode }); };
+    const tabDef = [
+      ['DESKTOP', () => this.set({ mode: 'desktop' }), st.mode === 'desktop', 118],
+      ['MOBILE', () => this.set({ mode: 'mobile' }), st.mode === 'mobile', 104],
+      ['SITE MAP', () => this.set({ panel: this.state.panel === 'map' ? null : 'map' }), st.panel === 'map', 118],
+      ['PAGES', () => this.set({ panel: this.state.panel === 'pages' ? null : 'pages' }), st.panel === 'pages', 96]
+    ];
+    const tabs = tabDef.map(([label, click, on, h]) => ({ label, click, h: h + 'px', bg: on ? '#F04B47' : '#071a3d' }));
+    const pages = this.pagesDef.map(([id, label, ready]) => {
+      const isCur = id === cur; const dOn = isCur && st.mode === 'desktop', mOn = isCur && st.mode === 'mobile';
+      return { label, ready: !!ready, soon: !ready, op: ready ? 1 : .55, weight: isCur ? 800 : 500, rowBg: isCur ? '#eef1f6' : 'transparent', goD: go(id, 'desktop'), goM: go(id, 'mobile'),
+        dBg: dOn ? '#071a3d' : '#ffffff', dColor: dOn ? '#ffffff' : '#071a3d', dBorder: dOn ? '#071a3d' : 'rgba(7,26,61,.2)',
+        mBg: mOn ? '#071a3d' : '#ffffff', mColor: mOn ? '#ffffff' : '#071a3d', mBorder: mOn ? '#071a3d' : 'rgba(7,26,61,.2)' };
+    });
+    const node = (id) => { const p = byId[id]; const ready = p && p.ready; return { label: p ? p.label : id, go: go(id), color: id === cur ? '#F04B47' : (ready || !p ? '#071a3d' : 'rgba(7,26,61,.45)'), cursor: ready ? 'pointer' : 'default' }; };
+    const sitemap = this.mapDef.map(([g, kids]) => ({ ...node(g), kids: kids.flatMap((k) => [k, ...(this.sub[k] || [])]).map(node) }));
+    const onFrame = () => {
+      const f = this.frameRef.current; let w; try { w = f && f.contentWindow; w && w.location.hash; } catch (e) { return; }
+      if (!w) return;
+      if (this._fw && this._fh) this._fw.removeEventListener('hashchange', this._fh);
+      this._fw = w; this._fh = () => { const m = decodeURIComponent(w.location.hash || '').match(/^#project\/([a-z-]+)/); if (m && byId[m[1]] && m[1] !== this.state.page) this.set({ page: m[1] }); };
+      w.addEventListener('hashchange', this._fh);
+    };
+    return {
+      frameRef: this.frameRef, onFrame, src: 'Site Template.dc.html?viewer=1#project/' + cur,
+      isDesktop: st.mode === 'desktop', isMobile: st.mode === 'mobile',
+      dScale, dW: 1920 * dScale + 'px', dH: 1080 * dScale + 'px',
+      mScale, mW: 414 * mScale + 'px', mH: 868 * mScale + 'px',
+      padR: st.panel ? '410px' : '50px', curLabel: byId[cur].label, modeLabel: st.mode === 'desktop' ? 'Desktop 1920×1080' : 'Mobile 390×844',
+      tabs, panelOpen: !!st.panel, showPages: st.panel === 'pages', showMap: st.panel === 'map', pages, sitemap
+    };
+  }
+}
+</script>
+</body>
+</html>
