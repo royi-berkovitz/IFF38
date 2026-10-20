@@ -68,7 +68,7 @@ a[aria-label="Email"]:hover [data-mcic],a[aria-label="Email"]:active [data-mcic]
 [data-mob="1"] [data-mmcol]{gap:9px!important}
 [data-mob="1"] [data-mmh]{font-size:calc(10.4px + 2px)!important;letter-spacing:.14em!important;color:#F04B47;margin-bottom:2px!important}
 [data-mob="1"] [data-mml]{font-size:calc(17.6px + 2px)!important;font-weight:500;line-height:1.2}
-[data-mob="1"] [data-mmfoot]{flex-direction:column;align-items:stretch!important;gap:12px!important;padding-top:16px!important;margin-top:auto!important}
+[data-mob="1"] [data-mmfoot]{flex-direction:column;align-items:stretch!important;gap:12px!important;padding-top:12px!important;margin-top:auto!important}
 [data-mob="1"] [data-mmsoc]{gap:4px!important;justify-content:space-between}
 [data-mob="1"] [data-mmfu]{font-size:calc(10.4px + 2px)!important;letter-spacing:.14em;margin-right:auto}
 [data-mob="1"] [data-mmfoot] > a{justify-content:center;height:48px!important}
@@ -164,6 +164,8 @@ a[aria-label="Email"]:hover [data-mcic],a[aria-label="Email"]:active [data-mcic]
 [data-mob="1"] [data-palmvid]{-webkit-mask:linear-gradient(#000,#000) top / 100% 73.9% no-repeat;mask:linear-gradient(#000,#000) top / 100% 73.9% no-repeat}
 [data-mob="1"] [data-palmimg]{-webkit-mask:linear-gradient(#000,#000) top / 100% 95.4% no-repeat;mask:linear-gradient(#000,#000) top / 100% 95.4% no-repeat}
 [data-mob="1"] [data-hflagm]{scale:1.089}
+header a[data-hdr="iff"][href="#project/designs"]:not([data-lgok="1"]){visibility:hidden}
+[data-iffmenu] a,[data-iffmenu] button,[data-iffmenu] span,[data-iffmenu] div{text-transform:uppercase}
 [data-mob="1"] [data-palmimg],[data-mob="1"] [data-palmvid]{translate:17.42px 0}
 [data-mob="1"] [data-tdn]{translate:0 calc(var(--tdy,0px) + 5px)}
 [data-mob="1"] [data-palmvid] video{left:45.6%!important;top:32.52%!important;width:55%!important;height:41.4%!important;aspect-ratio:auto!important;object-fit:cover!important}
@@ -443,7 +445,7 @@ image-slot::part(empty):hover{background:rgba(255,255,255,.14)}
 [data-mob="1"] [data-bscontact] form button[type="submit"]{height:44px!important}
 [data-nl38]{display:none!important}
 [data-mob="0"] [data-fburger]{width:37.5px;height:37.5px;transform:translateY(-6px)}
-[data-mob="1"] [data-fburger]{width:37.5px;height:37.5px;transform:translate(-3.75px,-4px)}
+[data-mob="1"] [data-fburger]{width:37.5px;height:37.5px;transform:translateX(-3.75px)}
 [data-mob="1"] [data-iffmenu] [aria-label="Close menu"]{transform:scale(1.25);transform-origin:34px 22px}
 [data-mob="0"] [data-tbc]:hover [data-tbcov]{transform:translateY(-6px);box-shadow:0 26px 50px rgba(7,26,61,.26)}
 [data-mob="0"] [data-tbc]:hover [data-tbgo]{background:#071a3d;color:#ffffff}
@@ -6590,7 +6592,7 @@ class Component extends DCLogic {
     const r = this.rootRef.current; if (!r) return;
     const mob = this.device === 'Mobile';
     const bg = r.querySelector('[aria-label="Open festival menu"]'); if (bg) if (bg) { bg.style.marginRight = '0px'; if (!mob) { const rr = r.getBoundingClientRect().right, br = bg.getBoundingClientRect().right; bg.style.marginRight = Math.round(30 - (rr - br)) + 'px'; } else bg.style.marginRight = '-10px'; }
-    const la = r.querySelector('header a[data-hdr="iff"][href="#project/designs"]'); if (la) { if (!mob && bg) { const pr = parseFloat(getComputedStyle(bg).paddingRight) || 0; const gap = Math.round(r.getBoundingClientRect().right - bg.getBoundingClientRect().right + pr); const cur = parseFloat(la.style.marginLeft) || 0; const d = la.getBoundingClientRect().left - r.getBoundingClientRect().left - cur; const nm = Math.round(gap - d) + 'px'; if (la.style.marginLeft !== nm) la.style.marginLeft = nm; } else if (mob) { const ic = r.querySelector('header [data-fburger]'); const im = la.querySelector('img'); if (ic && im) { const pr = [...ic.querySelectorAll('path')].map((p) => p.getBoundingClientRect()); const icR = Math.max(...pr.map((x) => x.right)); const gap = Math.round(r.getBoundingClientRect().right - icR); const cur = parseFloat(la.style.marginLeft) || 0; const d = im.getBoundingClientRect().left - r.getBoundingClientRect().left - cur; const nm = Math.round(gap - d) + 'px'; if (la.style.marginLeft !== nm) la.style.marginLeft = nm; } } else if (la.style.marginLeft !== '0px') la.style.marginLeft = '0px'; }
+    const la = r.querySelector('header a[data-hdr="iff"][href="#project/designs"]'); if (la) { if (!mob) { const gap = 30; const cur = parseFloat(la.style.marginLeft) || 0; const lim = la.querySelector('img') || la; const d = lim.getBoundingClientRect().left - r.getBoundingClientRect().left - cur; const nm = Math.round(gap - d) + 'px'; if (la.style.marginLeft !== nm) la.style.marginLeft = nm; } else if (mob) { const ic = r.querySelector('header [data-fburger]'); const im = la.querySelector('img'); if (ic && im) { const pr = [...ic.querySelectorAll('path')].map((p) => p.getBoundingClientRect()); const icR = Math.max(...pr.map((x) => x.right)); const gap = Math.round(r.getBoundingClientRect().right - icR); const cur = parseFloat(la.style.marginLeft) || 0; const d = im.getBoundingClientRect().left - r.getBoundingClientRect().left - cur; const nm = Math.round(gap - d) + 'px'; if (la.style.marginLeft !== nm) la.style.marginLeft = nm; } } else if (la.style.marginLeft !== '0px') la.style.marginLeft = '0px'; if (la.getAttribute('data-lgok') !== '1') requestAnimationFrame(() => la.setAttribute('data-lgok', '1')); }
     const lg = r.querySelector('[data-hdr="iff"] img[alt="38th Israel Film Festival"]'); if (lg) { const src = mob ? './images/logo-mobile.svg?v=2' : './images/38IFF_Logo.jpg'; if (lg.getAttribute('src') !== src) lg.setAttribute('src', src); lg.style.height = mob ? '52.8px' : '56px'; lg.style.transform = mob ? 'translate(0px,-4.4px)' : ''; }
     const m = r.querySelector('[data-iffmenu]');
     if (m) {
