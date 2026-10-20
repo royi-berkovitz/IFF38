@@ -14,22 +14,26 @@
 <div style="position:fixed;inset:0;background:#e3e6eb;overflow:hidden">
 
   <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-right:{{ padR }};transition:padding .3s">
-    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{ isDesktopFull }}" hint-placeholder-val="{{ false }}">
+      <iframe ref="{{ frameRef }}" onLoad="{{ onFrame }}" src="{{ src }}" title="Desktop preview" style="position:fixed;inset:0;width:100vw;height:100vh;border:0;background:#071a3d;z-index:30"></iframe>
+    </sc-if>
+    <sc-if value="{{ isDesktopBox }}" hint-placeholder-val="{{ true }}">
       <div style="width:{{ dW }};height:{{ dH }};position:relative;border-radius:8px;overflow:hidden;box-shadow:0 30px 80px rgba(7,26,61,.28);background:#071a3d">
-        <iframe ref="{{ frameRef }}" onLoad="{{ onFrame }}" src="{{ src }}" title="Desktop preview" style="position:absolute;top:0;left:0;width:1920px;height:1080px;border:0;transform:scale({{ dScale }});transform-origin:0 0"></iframe>
+        <iframe ref="{{ frameRef }}" onLoad="{{ onFrame }}" src="{{ src }}" title="Desktop preview" style="position:absolute;top:0;left:0;width:1920px;height:910px;border:0;zoom:{{ dScale }}"></iframe>
       </div>
     </sc-if>
     <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
       <div style="width:{{ mW }};height:{{ mH }};position:relative">
-        <div style="position:absolute;top:0;left:0;width:414px;height:868px;padding:12px;border-radius:56px;background:#0b1220;box-shadow:0 30px 80px rgba(7,26,61,.32);transform:scale({{ mScale }});transform-origin:0 0">
-          <div style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:#071a3d">
-            <iframe ref="{{ frameRef }}" onLoad="{{ onFrame }}" src="{{ src }}" title="Mobile preview" style="width:390px;height:844px;border:0;display:block"></iframe>
+        <div style="position:absolute;top:0;left:0;width:417px;height:760px;padding:12px;border-radius:40px;background:#0b1220;box-shadow:0 30px 80px rgba(7,26,61,.32);zoom:{{ mScale }}">
+          <div style="width:393px;height:736px;border-radius:28px;overflow:hidden;background:#071a3d">
+            <iframe ref="{{ frameRef }}" onLoad="{{ onFrame }}" src="{{ src }}" title="Mobile preview" style="width:393px;height:736px;border:0;display:block"></iframe>
           </div>
         </div>
       </div>
     </sc-if>
   </div>
 
+  <sc-if value="{{ notFull }}" hint-placeholder-val="{{ true }}">
   <div style="position:absolute;top:18px;left:18px;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.94);padding:8px 16px;border-radius:999px;font-size:14px;box-shadow:0 6px 18px rgba(7,26,61,.12)">
     <strong style="font-family:'Poppins',sans-serif;font-weight:800">{{ curLabel }}</strong>
     <span style="opacity:.5">·</span>
@@ -44,7 +48,7 @@
     </sc-for>
   </div>
 
-  <sc-if value="{{ panelOpen }}" hint-placeholder-val="{{ true }}">
+  <sc-if value="{{ panelOpenNF }}" hint-placeholder-val="{{ true }}">
     <div style="position:absolute;top:50%;right:56px;transform:translateY(-50%);width:340px;max-height:calc(100vh - 60px);overflow-y:auto;background:#ffffff;border-radius:18px;box-shadow:0 24px 60px rgba(7,26,61,.22);padding:22px 18px 16px;z-index:19">
       <sc-if value="{{ showPages }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;align-items:center;justify-content:space-between;padding:0 6px 14px;border-bottom:1px solid rgba(7,26,61,.12);margin-bottom:8px">
@@ -85,6 +89,14 @@
       </sc-if>
     </div>
   </sc-if>
+  </sc-if>
+  <sc-if value="{{ isFull }}" hint-placeholder-val="{{ false }}">
+    <div onMouseEnter="{{ barShow }}" style="position:fixed;top:50%;right:0;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:10px;opacity:{{ barOp }};transition:opacity .4s">
+      <button onClick="{{ toDesk }}" aria-label="DESKTOP" style="width:40px;height:118px;border:0;border-radius:12px 0 0 12px;background:{{ dPill }};color:#ffffff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(7,26,61,.18);padding:0;transition:background .25s, width .25s" style-hover="width:46px"><span style="writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Jost',sans-serif;font-weight:800;font-size:13px;letter-spacing:2px">DESKTOP</span></button>
+      <button onClick="{{ toMob }}" aria-label="MOBILE" style="width:40px;height:104px;border:0;border-radius:12px 0 0 12px;background:{{ mPill }};color:#ffffff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(7,26,61,.18);padding:0;transition:background .25s, width .25s" style-hover="width:46px"><span style="writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Jost',sans-serif;font-weight:800;font-size:13px;letter-spacing:2px">MOBILE</span></button>
+      <button onClick="{{ exitFull }}" aria-label="Exit full screen" title="Exit full screen (Esc)" style="width:40px;height:40px;border:0;border-radius:12px 0 0 12px;background:#071a3d;color:#ffffff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(7,26,61,.18);padding:0;transition:width .25s" style-hover="width:46px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"></path></svg></button>
+    </div>
+  </sc-if>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
@@ -112,8 +124,11 @@ class Component extends DCLogic {
   componentDidMount() {
     this.onR = () => this.setState({ w: window.innerWidth, h: window.innerHeight });
     window.addEventListener('resize', this.onR);
+    this.onK = (e) => { if (e.key === 'Escape' && this.state.full) this.setState({ full: false }); };
+    window.addEventListener('keydown', this.onK);
   }
-  componentWillUnmount() { window.removeEventListener('resize', this.onR); if (this._fw && this._fh) this._fw.removeEventListener('hashchange', this._fh); }
+  armBar() { clearTimeout(this._barT); this._barT = setTimeout(() => this.setState({ barOp: .25 }), 2500); }
+  componentWillUnmount() { window.removeEventListener('resize', this.onR); window.removeEventListener('keydown', this.onK); clearTimeout(this._barT); if (this._fw && this._fh) this._fw.removeEventListener('hashchange', this._fh); }
   set(patch) {
     this.setState(patch, () => { try { localStorage.setItem('iff-viewer', JSON.stringify({ page: this.state.page, mode: this.state.mode, panel: this.state.panel })); } catch (e) {} });
   }
@@ -122,14 +137,16 @@ class Component extends DCLogic {
     const byId = Object.fromEntries(this.pagesDef.map(([id, label, ready]) => [id, { label, ready: !!ready }]));
     const cur = byId[st.page] && byId[st.page].ready ? st.page : 'designs';
     const availW = st.w - (st.panel ? 420 : 70) - 40, availH = st.h - 90;
-    const dScale = Math.max(0.2, Math.min(availW / 1920, availH / 1080, 1));
-    const mScale = Math.max(0.3, Math.min(availH / 868, 1));
+    const dScale = Math.max(0.2, Math.min(availW / 1920, availH / 910, 1));
+    const full = !!st.full;
+    const mScale = full ? Math.max(0.3, st.h / 760) : Math.max(0.3, Math.min(availH / 760, 1));
     const go = (id, mode) => () => { if (byId[id] && byId[id].ready) this.set({ page: id, mode: mode || this.state.mode }); };
     const tabDef = [
       ['DESKTOP', () => this.set({ mode: 'desktop' }), st.mode === 'desktop', 118],
       ['MOBILE', () => this.set({ mode: 'mobile' }), st.mode === 'mobile', 104],
       ['SITE MAP', () => this.set({ panel: this.state.panel === 'map' ? null : 'map' }), st.panel === 'map', 118],
-      ['PAGES', () => this.set({ panel: this.state.panel === 'pages' ? null : 'pages' }), st.panel === 'pages', 96]
+      ['PAGES', () => this.set({ panel: this.state.panel === 'pages' ? null : 'pages' }), st.panel === 'pages', 96],
+      ['FULL SCREEN', () => this.setState({ full: true, barOp: 1 }, () => this.armBar()), false, 150]
     ];
     const tabs = tabDef.map(([label, click, on, h]) => ({ label, click, h: h + 'px', bg: on ? '#F04B47' : '#071a3d' }));
     const pages = this.pagesDef.map(([id, label, ready]) => {
@@ -150,9 +167,14 @@ class Component extends DCLogic {
     return {
       frameRef: this.frameRef, onFrame, src: 'Site Template.dc.html?viewer=1#project/' + cur,
       isDesktop: st.mode === 'desktop', isMobile: st.mode === 'mobile',
-      dScale, dW: 1920 * dScale + 'px', dH: 1080 * dScale + 'px',
-      mScale, mW: 414 * mScale + 'px', mH: 868 * mScale + 'px',
-      padR: st.panel ? '410px' : '50px', curLabel: byId[cur].label, modeLabel: st.mode === 'desktop' ? 'Desktop 1920×1080' : 'Mobile 390×844',
+      dScale, dW: 1920 * dScale + 'px', dH: 910 * dScale + 'px',
+      mScale, mW: 417 * mScale + 'px', mH: 760 * mScale + 'px',
+      padR: full ? '0px' : (st.panel ? '410px' : '50px'),
+      isFull: full, notFull: !full, isDesktopFull: full && st.mode === 'desktop', isDesktopBox: !full && st.mode === 'desktop', panelOpenNF: !full && !!st.panel,
+      barOp: st.barOp ?? 1, barShow: () => { this.setState({ barOp: 1 }); this.armBar(); },
+      toDesk: () => { this.set({ mode: 'desktop' }); this.setState({ barOp: 1 }); this.armBar(); }, toMob: () => { this.set({ mode: 'mobile' }); this.setState({ barOp: 1 }); this.armBar(); },
+      exitFull: () => this.setState({ full: false }),
+      dPill: st.mode === 'desktop' ? '#F04B47' : '#071a3d', mPill: st.mode === 'mobile' ? '#F04B47' : '#071a3d', curLabel: byId[cur].label, modeLabel: st.mode === 'desktop' ? 'Desktop 1920×910 (browser window)' : 'Mobile 393×736 (Safari)',
       tabs, panelOpen: !!st.panel, showPages: st.panel === 'pages', showMap: st.panel === 'map', pages, sitemap
     };
   }
