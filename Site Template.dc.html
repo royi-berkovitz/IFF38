@@ -164,8 +164,6 @@ a[aria-label="Email"]:hover [data-mcic],a[aria-label="Email"]:active [data-mcic]
 [data-mob="1"] [data-palmvid]{-webkit-mask:linear-gradient(#000,#000) top / 100% 73.9% no-repeat;mask:linear-gradient(#000,#000) top / 100% 73.9% no-repeat}
 [data-mob="1"] [data-palmimg]{-webkit-mask:linear-gradient(#000,#000) top / 100% 95.4% no-repeat;mask:linear-gradient(#000,#000) top / 100% 95.4% no-repeat}
 [data-mob="1"] [data-hflagm]{scale:1.089}
-html{scroll-snap-type:y proximity}
-section[data-seckey="d-hero"],section[data-seckey="d-spotlight"],section[data-seckey="d-films"],section[data-seckey="d-gallery"],section[data-seckey="d-mailing"],section[data-seckey="d-sponsors"],[data-fsec]{scroll-snap-align:start;scroll-snap-stop:normal}
 header a[data-hdr="iff"][href="#project/designs"]:not([data-lgok="1"]){visibility:hidden}
 [data-iffmenu] a,[data-iffmenu] button,[data-iffmenu] span,[data-iffmenu] div{text-transform:uppercase}
 [data-mob="1"] [data-palmimg],[data-mob="1"] [data-palmvid]{translate:17.42px 0}
@@ -5744,6 +5742,7 @@ class Component extends DCLogic {
     window.addEventListener('resize', this._onResize);
     this._heroSteps = 0;
     this._onWheel = (e) => {
+      if (this.isProjectView) return;
       if (this.state.tsOpen || this.state.pjIm != null) { e.preventDefault(); return; }
       if (this.isDocView && this.page && this.page.kind === 'design' && this.page.id !== 'designs') return;
       if (this.device !== 'Desktop' && !(e.target && e.target.closest && e.target.closest('aside'))) {
@@ -5869,6 +5868,7 @@ class Component extends DCLogic {
       this._tInModal = !!(e.target && e.target.closest && e.target.closest('aside'));
     };
     this._onTouchEnd = (e) => {
+      if (this.isProjectView) { this._tY = null; return; }
       if (this._tY == null || this._tInModal || this.state.menu) return;
       const t = e.changedTouches && e.changedTouches[0];
       if (!t) return;
