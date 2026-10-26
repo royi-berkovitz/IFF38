@@ -179,7 +179,7 @@ a[aria-label="Email"]:hover [data-mcic],a[aria-label="Email"]:active [data-mcic]
 [data-onfilm="1"][data-mob="1"] [data-cbar] > a[data-fbuybtn],[data-onfilm="1"] [data-mob="1"] [data-cbar] > a[data-fbuybtn],[data-mob="1"] [data-onfilm="1"] [data-cbar] > a[data-fbuybtn]{display:flex!important}
 [data-flh1] [data-flsep],[data-flh1] [data-flhe]{transition:opacity .35s ease}
 [data-flc="1"] [data-flh1] [data-flsep],[data-flc="1"] [data-flh1] [data-flhe]{display:none!important}
-[data-mob="0"] [data-flc="1"] [data-flpres] [data-lgtile]{display:none!important}
+[data-mob="0"] [data-flc="1"] [data-flpres] [data-lgblock]{display:none!important}
 [data-mob="0"] [data-flc="1"] [data-flbuy]{margin-bottom:0!important}
 [data-mob="1"] [data-flbuy]{display:none!important}
 [data-mob="1"] [data-flh1] [data-flsep]{display:none!important}
@@ -470,7 +470,7 @@ image-slot::part(empty):hover{background:rgba(255,255,255,.14)}
 [data-mob="1"] [data-bssel]{background-position:right 28px center!important;padding-right:52px!important}
 [data-mob="1"] [data-bscontact] form button[type="submit"]{height:44px!important}
 [data-nl38]{display:none!important}
-[data-mob="0"] [data-fburger]{width:42px;height:42px;transform:translateY(-7px)}
+[data-mob="0"] [data-fburger]{width:42px;height:42px;transform:translateY(-1px)}
 [data-mob="1"] [data-fburger]{width:37.5px;height:37.5px;transform:translateX(-3.75px)}
 [data-mob="1"] [data-iffmenu] [aria-label="Close menu"]{transform:scale(1.25);transform-origin:34px 22px}
 [data-mob="0"] [data-tbc]:hover [data-tbcov]{transform:translateY(-6px);box-shadow:0 26px 50px rgba(7,26,61,.26)}
@@ -1023,6 +1023,13 @@ button:disabled{cursor:default}
 
 [data-mob="1"] [data-fldir] span{font-size:calc(13px + 2px)!important}
 [data-onfilm="1"][data-mob="1"] [data-dsgsec] > footer[data-iffoot][data-iffoot],[data-onfilm="1"] [data-mob="1"] [data-dsgsec] > footer[data-iffoot][data-iffoot],[data-mob="1"] [data-onfilm="1"] [data-dsgsec] > footer[data-iffoot][data-iffoot],[data-onfilm="1"][data-mob="1"] footer[data-iffoot][data-iffoot][data-iffoot][data-iffoot],[data-onfilm="1"] [data-mob="1"] footer[data-iffoot][data-iffoot][data-iffoot][data-iffoot],[data-mob="1"] [data-onfilm="1"] footer[data-iffoot][data-iffoot][data-iffoot][data-iffoot]{padding-bottom:68px!important}
+
+[data-mob="0"] [data-mmgrid] > [data-mmcol]:first-child,[data-mob="0"] [data-mmgrid] > * > [data-mmcol]:first-child{grid-column:span 5!important}
+[data-mob="0"] [data-mmh]{white-space:nowrap}
+[data-mob="1"] a[style*="border-radius:30px"],[data-mob="1"] a[style*="border-radius: 30px"]{zoom:.92!important;min-height:48px!important;box-sizing:border-box}
+[data-mob="1"] [data-sphead] a,[data-mob="1"] [data-sphero] a,[data-mob="1"] [data-flhero] a[data-flbtn]{height:48px!important}
+[data-mob="0"] [data-flh1] [data-flhe]{font-size:calc(1em + 3px)}
+[data-mob="1"] [data-flh1] [data-flhe]{font-size:calc(22px + 2px)!important}
 </style>
 </helmet>
 <div ref="{{ rootRef }}" data-view="{{ viewMode }}" data-pdev="{{ pdev }}" data-mob="{{ isMob }}" style="position:relative;isolation:isolate;background:var(--bgfill,var(--paper));color:var(--text);font-size:var(--body);font-weight:300;line-height:1.55;overflow-x:clip">
@@ -2630,10 +2637,11 @@ button:disabled{cursor:default}
           <span data-flonly="1" style="display:none;font-family:'Jost','Heebo',sans-serif;font-size:calc(16px + 2px);color:#c9d1df;white-space:nowrap">Dir. Moshe Rosenthal · 2026 · 109 min</span>
           <div data-flp="1" data-fldir="1" style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 24px"><span style="font-family:'Jost','Heebo',sans-serif;font-weight:500;font-size:30px;line-height:1.2;color:#c9d1df">Dir. Moshe Rosenthal · 2026 · 109 min</span></div>
         </div>
-        <div data-flpres="1" data-lgblock="1" style="grid-column:9 / 13;display:flex;flex-direction:column;align-items:flex-end;gap:10px">
+        <div data-flpres="1" style="grid-column:9 / 13;display:flex;flex-direction:column;align-items:flex-end;gap:10px">
           <a data-flbuy="1" href="https://38iff.eventive.org/schedule" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 26px;background:linear-gradient(90deg,#F04B47 0%,#EB651B 50%,#EB651B 100%) 0 0 / 200% 100%;border:1px solid transparent;border-radius:30px;color:#fff;font-family:'Jost','Heebo',sans-serif;font-weight:800;font-size:calc(13px + 2px);letter-spacing:.06em;text-decoration:none;white-space:nowrap;transition:background-position .9s ease,color .3s,height .45s ease;margin-bottom:14px" style-hover="background-position:100% 0;border-color:transparent;color:#020611">BUY TICKETS</a>
-          <span data-flp="1" style="font-family:'JetBrains Mono',monospace;font-size:calc(12px + 2px);letter-spacing:.28em;color:#a9b6cf;font-size:calc(11px + 2px)">PRESENTED BY</span>
+          <div data-lgblock="1" style="display:flex;flex-direction:column;align-items:flex-end;gap:10px"><span data-flp="1" style="font-family:'JetBrains Mono',monospace;font-size:calc(12px + 2px);letter-spacing:.28em;color:#a9b6cf;font-size:calc(11px + 2px)">PRESENTED BY</span>
           <div data-lgtile="1" data-flpb="1" style="position:relative;perspective:800px;width:180px;height:60px;flex:none"><div data-lgflip="1" style="position:absolute;inset:0;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.7,.2,1)"><div data-lgfront="1" style="position:absolute;inset:0;border-radius:5px;-webkit-backface-visibility:hidden;backface-visibility:hidden"><image-slot id="iff-fp-presenter" shape="rounded" radius="5" fit="contain" placeholder="SPONSOR LOGO"></image-slot></div><div data-lgback="1" aria-hidden="true" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px;box-sizing:border-box;text-align:center;background:#ffffff;border-radius:5px;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform:rotateY(180deg) translateZ(1px)"><span style="font-family:'JetBrains Mono',monospace;font-size:calc(10px + 2px);letter-spacing:.16em;color:#5d6577">THANK YOU</span><span style="font-family:'Poppins','Heebo',sans-serif;font-weight:700;font-size:calc(13px + 2px);line-height:1.2;color:#020611;text-wrap:balance">Sponsor Name</span></div></div></div>
+        </div>
         </div>
       </div>
     </div>
@@ -2706,7 +2714,7 @@ button:disabled{cursor:default}
             <div style="display:flex;flex-direction:column;gap:10px;padding-bottom:20px;border-bottom:1px solid #eee8dd">
               <div style="font-family:'Poppins','Heebo',sans-serif;font-weight:800;font-size:calc(20px + 2px);line-height:1.2;color:#071a3d">{{ sh.when }}</div>
               <div style="display:flex;gap:12px;align-items:baseline;font-family:'Jost','Heebo',sans-serif;font-size:calc(14px + 2px);color:#3d4556">{{ sh.venue }}<a href="#" style="color:#F04B47;font-family:'Jost','Heebo',sans-serif;font-weight:800;font-size:calc(13px + 2px);letter-spacing:.06em;text-decoration:none;transition:color .3s" style-hover="color:#032a5e;font-size:calc(12px + 2px)">MAP</a></div>
-              <sc-if value="{{ sh.qa }}" hint-placeholder-val="{{ false }}"><span style="align-self:flex-start;padding:5px 10px;background:#f6b843;border-radius:5px;font-family:'Poppins','Heebo',sans-serif;font-weight:700;font-size:calc(10px + 2px);letter-spacing:.06em;color:#071a3d">Q&amp;A WITH [GUEST]</span></sc-if>
+              <sc-if value="{{ sh.qa }}" hint-placeholder-val="{{ false }}"><span style="align-self:flex-start;padding:3px 10px;background:#ffffff;border:1px solid #071a3d;border-radius:30px;font-family:'Poppins','Heebo',sans-serif;font-weight:700;font-size:calc(10px + 2px);letter-spacing:.06em;color:#071a3d">Q&amp;A WITH [GUEST]</span></sc-if>
               <a href="https://38iff.eventive.org/schedule" style="display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;background:linear-gradient(90deg,#F04B47 0%,#EB651B 50%,#EB651B 100%) 0 0 / 200% 100%;border:1px solid transparent;border-radius:30px;color:#fff;font-family:'Jost','Heebo',sans-serif;font-weight:800;font-size:calc(13px + 2px);letter-spacing:.06em;text-decoration:none;cursor:pointer;transition:background-position .9s ease,color .3s;margin-top:4px" style-hover="background-position:100% 0;border-color:transparent;color:#020611">BUY TICKET</a>
             </div>
           </sc-for>
@@ -5459,7 +5467,7 @@ class Component extends DCLogic {
           if (nx) nx.click();
         }
       });
-    }, 6500);
+    }, 5000);
     this._a38T = setInterval(() => { if (!document.hidden) this._align38(); const r = this.rootRef.current; if (r) { r.querySelectorAll('video[src*="palms.mp4"]').forEach((v) => { if (v.playbackRate !== .7) v.playbackRate = .7; }); const fh = r.querySelector('[data-seckey="df-hero"]'); const on = fh && fh.offsetHeight > 0 ? '1' : '0'; if (r.getAttribute('data-onfilm') !== on) r.setAttribute('data-onfilm', on); } }, 500);
     { let last = 0; const SPEED = 45; let acc = null;
       const tick = (now) => { this._gAuto = requestAnimationFrame(tick); const dt = last ? Math.min(64, now - last) : 0; last = now;
@@ -5615,7 +5623,7 @@ class Component extends DCLogic {
           if (document.hidden) return; { const nw = performance.now(); if (nw - (this._reelLast || 0) < 15) return; this._reelLast = nw; }
           if (this._reelSec === undefined || !this._reelSec || !this._reelSec.isConnected) this._reelSec = this.rootRef.current && this.rootRef.current.querySelector('[data-seckey="d-hero"]');
           if (this._reelSec) { const rb = this._reelSec.getBoundingClientRect(); if (rb.bottom < 0 || rb.top > window.innerHeight || !rb.height) return; }
-          const hk = this.state.hSlide || 0; const ang = still ? 0 : ((performance.now() - t0) / 12000) * Math.PI * 2;
+          const hk = this.state.hSlide || 0; const ang = still ? 0 : ((performance.now() - t0) / 24000) * Math.PI * 2;
           if (hk !== 0) { const c2 = this.rootRef.current && this.rootRef.current.querySelector('canvas[data-reel2="' + hk + '"]'); if (c2) { try { draw2(c2, hk, ang); } catch (er) {} } }
           const cvs = this.rootRef.current ? [...this.rootRef.current.querySelectorAll('canvas[data-reel]')].filter((c) => c.offsetParent && (c.dataset.reel !== '1' || hk === 0)) : []; if (!cvs.length) return;
           const okI = (im) => im && im.complete && im.naturalWidth > 0; if (!okI(base) || !okI(holes) || !okI(clip)) return;
