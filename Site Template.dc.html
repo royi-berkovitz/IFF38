@@ -8,6 +8,7 @@
 <body>
 <x-dc>
 <helmet>
+<meta name="referrer" content="no-referrer">
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -2664,6 +2665,17 @@ button:disabled{cursor:default}
               </div></div>
           <p lang="{{ pg.syn.lang }}" dir="{{ pg.syn.dir }}" style="margin:0;font-family:'Jost','Heebo',sans-serif;font-weight:500;font-size:calc(16px + 2px);line-height:1.65;color:#3d4556;font-size:calc(18px + 2px);max-width:60ch;text-wrap:pretty;text-align:{{ pg.syn.align }}">{{ pg.syn.text }}</p>
         </div>
+        <sc-if value="{{ pg.aw.has }}" hint-placeholder-val="{{ true }}">
+        <div data-fpaw="1" style="display:flex;flex-direction:column;gap:20px;padding-top:32px;border-top:1px solid #e4ddd0">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px 24px;flex-wrap:wrap"><h2 style="margin:0;font-family:'Poppins','Heebo',sans-serif;font-weight:800;font-size:calc(28px + 2px);line-height:1;color:#071a3d">Awards &amp; Nominations</h2><div role="group" aria-label="Awards language" style="zoom:.8;display:inline-flex;padding:3px;gap:2px;border:1px solid #071a3d;border-radius:30px">
+                <button type="button" onClick="{{ pg.aw.setEn }}" aria-pressed="{{ pg.aw.enOn }}" style="height:30px;padding:0 14px;border:none;border-radius:30px;background:{{ pg.aw.enBg }};color:{{ pg.aw.enFg }};font-family:'Jost','Heebo',sans-serif;font-weight:700;font-size:calc((11px + 2px) * 1.15);letter-spacing:.08em;cursor:pointer;transition:background .3s,color .3s">EN</button>
+                <button type="button" onClick="{{ pg.aw.setHe }}" aria-pressed="{{ pg.aw.heOn }}" style="height:30px;padding:0 14px;border:none;border-radius:30px;background:{{ pg.aw.heBg }};color:{{ pg.aw.heFg }};font-family:'Jost','Heebo',sans-serif;font-weight:700;letter-spacing:.08em;font-size:calc((12px + 2px) * 1.15);cursor:pointer;transition:background .3s,color .3s">HEB</button>
+              </div></div>
+          <ul lang="{{ pg.aw.lang }}" dir="{{ pg.aw.dir }}" style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;max-width:60ch;text-align:{{ pg.aw.align }}">
+            <sc-for list="{{ pg.aw.items }}" as="a" hint-placeholder-count="3"><li style="display:grid;grid-template-columns:14px minmax(0,1fr);gap:12px;align-items:start"><span aria-hidden="true" style="width:8px;height:8px;margin-top:9px;border-radius:2px;background:linear-gradient(90deg,#F04B47,#EB651B)"></span><span style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Jost','Heebo',sans-serif;font-weight:700;font-size:calc(16px + 2px);line-height:1.4;color:#071a3d">{{ a.t }}</span><span style="font-family:'Jost','Heebo',sans-serif;font-weight:500;font-size:calc(15px + 2px);line-height:1.5;color:#3d4556">{{ a.d }}</span></span></li></sc-for>
+          </ul>
+        </div>
+        </sc-if>
         <sc-if value="{{ pg.gal.has }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;flex-direction:column;gap:16px;padding-top:32px;border-top:1px solid #e4ddd0">
           <div style="display:flex;justify-content:space-between;align-items:center;gap:16px">
@@ -9119,8 +9131,13 @@ class Component extends DCLogic {
         const yr = st.pgYear || 'All';
         const list = arch.filter((a) => yr === 'All' || a.y === yr);
         const lim = st.pgMore ? list.length : 5;
+        const awHe = st.fpAwLang === 'he';
+        const awTog = (ev) => { if (ev) ev.stopPropagation(); this.setState((x) => ({ fpAwLang: x.fpAwLang === 'he' ? 'en' : 'he' })); };
+        const AW = [['[FESTIVAL / AWARD NAME] · [YEAR]', '[Winner / Nominee] · [Category]', '[שם הפסטיבל / הפרס] · [שנה]', '[זוכה / מועמד] · [קטגוריה]'], ['[FESTIVAL / AWARD NAME] · [YEAR]', '[Winner / Nominee] · [Category]', '[שם הפסטיבל / הפרס] · [שנה]', '[זוכה / מועמד] · [קטגוריה]'], ['[FESTIVAL / AWARD NAME] · [YEAR]', '[Official Selection]', '[שם הפסטיבל / הפרס] · [שנה]', '[מבחר רשמי]']];
+        const aw = { has: AW.length > 0, items: AW.map(([t, d, th, dh]) => ({ t: awHe ? th : t, d: awHe ? dh : d })), lang: awHe ? 'he' : 'en', dir: awHe ? 'rtl' : 'ltr', align: awHe ? 'right' : 'left', enOn: awHe ? 'false' : 'true', heOn: awHe ? 'true' : 'false', enBg: awHe ? 'transparent' : '#071a3d', enFg: awHe ? '#071a3d' : '#ffffff', heBg: awHe ? '#071a3d' : 'transparent', heFg: awHe ? '#ffffff' : '#071a3d', setEn: awTog, setHe: awTog };
         return {
           syn,
+          aw,
           fm: (this._hmRows || [])[0] || { cards: [], gaps: [] },
           shows: [{ when: 'Wed, Nov 18 · 7:30 PM', venue: 'Writers Guild Theater', qa: true }, { when: 'Sun, Nov 22 · 4:00 PM', venue: 'Laemmle Town Center 5', qa: false }],
           gal: (() => {
